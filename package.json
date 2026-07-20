@@ -28,6 +28,22 @@
     "developer-tools"
   ],
   "author": "Stefan Costache",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "bin/",
+    "src/",
+    "dist/",
+    "package.json",
+    "README.md",
+    "LICENSE",
+    "tsconfig.json",
+    "tsconfig.cli.json",
+    "vite.config.ts",
+    "tailwind.config.ts",
+    "postcss.config.js"
+  ],
   "license": "MIT",
   "dependencies": {
     "commander": "^12.1.0",
