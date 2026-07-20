@@ -174,7 +174,7 @@ git --version
 
 ```bash
 # 1. Clone this repository
-git clone https://github.com/stefancostache/git-time-machine.git
+git clone https://github.com/costachestefy90-source/git-time-machine.git
 
 # 2. Install dependencies
 cd git-time-machine
@@ -264,7 +264,7 @@ Want to contribute or modify the tool? Here's how to set up the development envi
 
 ```bash
 # Clone the repo
-git clone https://github.com/stefancostache/git-time-machine.git
+git clone https://github.com/costachestefy90-source/git-time-machine.git
 cd git-time-machine
 npm install
 
