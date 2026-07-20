@@ -1,0 +1,78 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --surface-0: #f8f9fb;
+  --surface-1: #ffffff;
+  --surface-2: #f0f1f4;
+  --surface-3: #e2e4e9;
+  --accent: #6366f1;
+  --accent-light: #4f46e5;
+  --accent-dim: #4338ca;
+  --fg: #1a1a2e;
+  --fg-muted: #64748b;
+  --fg-faint: #94a3b8;
+  --border: #e2e4e9;
+  --code-bg: #f1f5f9;
+  --calendar-empty: #f0f1f4;
+  --calendar-stroke: #e2e4e9;
+  --chart-axis: #cbd5e1;
+  --chart-text: #64748b;
+  --diff-add-bg: rgba(34, 197, 94, 0.1);
+  --diff-add-text: #16a34a;
+  --diff-del-bg: rgba(239, 68, 68, 0.1);
+  --diff-del-text: #dc2626;
+}
+
+.dark {
+  --surface-0: #0a0a0f;
+  --surface-1: #12121a;
+  --surface-2: #1a1a25;
+  --surface-3: #242430;
+  --accent: #6366f1;
+  --accent-light: #818cf8;
+  --accent-dim: #4f46e5;
+  --fg: #e2e8f0;
+  --fg-muted: #94a3b8;
+  --fg-faint: #475569;
+  --border: #242430;
+  --code-bg: #0a0a0f;
+  --calendar-empty: #1a1a25;
+  --calendar-stroke: #242430;
+  --chart-axis: #333;
+  --chart-text: #888;
+  --diff-add-bg: rgba(34, 197, 94, 0.15);
+  --diff-add-text: #4ade80;
+  --diff-del-bg: rgba(239, 68, 68, 0.15);
+  --diff-del-text: #f87171;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-3) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--surface-3);
+  border-radius: 3px;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+pre, code {
+  font-family: 'SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', monospace;
+  font-size: 13px;
+  line-height: 1.5;
+}
