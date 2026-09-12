@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="A sample, browser-only tour of the Git Time Machine dashboard."
+    />
+    <title>Git Time Machine — demo</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./app.js" defer></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="./" aria-label="Git Time Machine demo home">
+          <span class="brand-mark" aria-hidden="true">↻</span>
+          <span>Git Time Machine</span>
+        </a>
+
+        <div class="topbar-actions">
+          <span class="demo-pill">DEMO MODE</span>
+          <a
+            class="source-link"
+            href="https://github.com/costachestefy90-source/git-time-machine"
+            target="_blank"
+            rel="noreferrer"
+          >
+            View source <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+      </header>
+
+      <main class="page">
+        <section class="hero" aria-labelledby="page-title">
+          <div class="hero-copy">
+            <p class="eyebrow">A visual walk through Git history</p>
+            <h1 id="page-title">See where a codebase has been.</h1>
+            <p class="hero-text">
+              Pick an example repository to explore its hotspots, ownership,
+              and working rhythm. The full command-line tool can inspect a real
+              repository locally.
+            </p>
+          </div>
+
+          <label class="repo-picker">
+            <span>Example repository</span>
+            <select id="repoSelect" aria-label="Choose an example repository">
+              <option value="orbit-notes">Orbit Notes</option>
+              <option value="signal-lab">Signal Lab</option>
+              <option value="harbor-api">Harbor API</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="demo-notice" aria-live="polite">
+          <div class="notice-copy">
+            <span class="status-dot" aria-hidden="true"></span>
+            <div>
+              <strong>Exploring sample data</strong>
+              <span id="sampleSummary">No repository is uploaded.</span>
+            </div>
+          </div>
+          <button class="quiet-button" id="randomExample" type="button">
+            Try another <span aria-hidden="true">→</span>
+          </button>
+        </section>
+
+        <section class="stats" id="stats" aria-label="Repository summary"></section>
+
+        <nav class="view-tabs" aria-label="Demo views">
+          <button class="tab is-active" type="button" data-view="overview">
+            Overview
+          </button>
+          <button class="tab" type="button" data-view="ownership">
+            Ownership
+          </button>
+          <button class="tab" type="button" data-view="activity">
+            Activity
+          </button>
+        </nav>
+
+        <section class="view-panel is-visible" id="view-overview" aria-labelledby="overview-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Change pressure</p>
+              <h2 id="overview-title">Where does the work collect?</h2>
+            </div>
+            <span class="date-range" id="overviewRange"></span>
+          </div>
+
+          <div class="overview-grid">
+            <article class="panel heatmap-panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Commit heatmap</h3>
+                  <p>Each square is one day of repository activity.</p>
+                </div>
+                <div class="heat-legend" aria-label="Commit intensity legend">
+                  <span>quiet</span>
+                  <i class="heat-cell level-0"></i>
+                  <i class="heat-cell level-1"></i>
+                  <i class="heat-cell level-2"></i>
+                  <i class="heat-cell level-3"></i>
+                  <i class="heat-cell level-4"></i>
+                  <span>busy</span>
+                </div>
+              </div>
+              <div class="heatmap-scroll">
+                <div class="weekday-labels" aria-hidden="true">
+                  <span></span><span>Mon</span><span></span><span>Wed</span><span></span><span>Fri</span><span></span>
+                </div>
+                <div class="heatmap" id="heatmap" aria-label="Commit activity heatmap"></div>
+              </div>
+              <p class="chart-note">Darker squares show days with more commits.</p>
+            </article>
+
+            <article class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Most changed files</h3>
+                  <p>Frequent edits can point to a hotspot.</p>
+                </div>
+              </div>
+              <div class="file-list" id="hotspotList"></div>
+            </article>
+          </div>
+
+          <article class="panel focus-panel">
+            <div class="focus-icon" aria-hidden="true">!</div>
+            <div>
+              <p class="eyebrow">A useful question to ask</p>
+              <h3 id="focusTitle"></h3>
+              <p id="focusText"></p>
+            </div>
+          </article>
+        </section>
+
+        <section class="view-panel" id="view-ownership" aria-labelledby="ownership-title" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Knowledge map</p>
+              <h2 id="ownership-title">Who knows the code?</h2>
+            </div>
+            <span class="date-range" id="ownershipRange"></span>
+          </div>
+
+          <div class="ownership-grid">
+            <article class="panel ownership-panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Commit share</h3>
+                  <p>A quick view of how work is distributed.</p>
+                </div>
+              </div>
+              <div class="ownership-content">
+                <div class="donut" id="donut" role="img" aria-label="Contributor commit share"></div>
+                <div class="ownership-legend" id="ownershipLegend"></div>
+              </div>
+            </article>
+
+            <article class="panel">
+              <div class="panel-heading">
+                <div>
+                  <h3>Contributor map</h3>
+                  <p>People with the most commits in this example.</p>
+                </div>
+              </div>
+              <div class="contributors" id="contributors"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="view-panel" id="view-activity" aria-labelledby="activity-title" hidden>
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Working rhythm</p>
+              <h2 id="activity-title">When did the project move?</h2>
+            </div>
+            <span class="date-range" id="activityRange"></span>
+          </div>
+
+          <article class="panel activity-panel">
+            <div class="panel-heading">
+              <div>
+                <h3>Commits by month</h3>
+                <p>Peaks often line up with launches, fixes, or deadlines.</p>
+              </div>
+              <span class="activity-total" id="activityTotal"></span>
+            </div>
+            <div class="activity-chart" id="activityChart"></div>
+          </article>
+
+          <div class="rhythm-cards" id="rhythmCards"></div>
+        </section>
+
+        <footer class="footer">
+          <span>Sample data only · nothing is uploaded from this page.</span>
+          <a href="https://github.com/costachestefy90-source/git-time-machine" target="_blank" rel="noreferrer">
+            Learn about the local tool <span aria-hidden="true">↗</span>
+          </a>
+        </footer>
+      </main>
+    </div>
+
+    <noscript>This demo needs JavaScript enabled to display the sample repository views.</noscript>
+  </body>
+</html>
