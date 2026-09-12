@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Routes, Route, NavLink } from 'react-router-dom'
+import { DEMO_REPOSITORIES, getDemoSampleKey, isDemoMode } from './lib/demoData'
 
 import ChurnHeatmap from './pages/ChurnHeatmap'
 import FunctionTimeline from './pages/FunctionTimeline'
@@ -51,6 +52,7 @@ const NAV_SECTIONS = [
 
 export default function App() {
   const [dark, setDark] = useState(true)
+  const demo = isDemoMode()
 
   useEffect(() => {
     document.documentElement.classList.toggle('dark', dark)
@@ -62,6 +64,8 @@ export default function App() {
         <div className="px-5 pt-5 pb-4">
           <span className="text-sm font-bold text-fg tracking-tight">Git Time Machine</span>
         </div>
+
+        {demo && <DemoPicker />}
 
         <div className="flex-1 px-3 pb-3 space-y-5">
           {NAV_SECTIONS.map((section) => (
@@ -135,6 +139,37 @@ export default function App() {
           <Route path="/explanation" element={<Explanation />} />
         </Routes>
       </main>
+    </div>
+  )
+}
+
+function DemoPicker() {
+  const current = getDemoSampleKey()
+
+  const changeSample = (value: string) => {
+    const url = new URL(window.location.href)
+    url.searchParams.set('demo', '1')
+    url.searchParams.set('sample', value)
+    window.location.assign(url.toString())
+  }
+
+  return (
+    <div className="px-3 pb-4">
+      <div className="rounded-lg bg-surface-2 border border-surface-3 p-3">
+        <p className="text-[10px] uppercase tracking-widest text-accent-light font-bold">Demo data</p>
+        <p className="text-[11px] text-fg-faint mt-1 mb-2">Choose a sample repository</p>
+        <select
+          value={current}
+          onChange={(e) => changeSample(e.target.value)}
+          className="w-full bg-surface-1 border border-surface-3 rounded-md px-2 py-1.5 text-xs font-semibold text-fg focus:outline-none focus:border-accent"
+          aria-label="Choose a demo repository"
+        >
+          {Object.entries(DEMO_REPOSITORIES).map(([key, repository]) => (
+            <option key={key} value={key}>{repository.repo}</option>
+          ))}
+        </select>
+        <p className="text-[10px] text-fg-faint mt-2 leading-relaxed">Sample values are used here. Local analysis is unchanged.</p>
+      </div>
     </div>
   )
 }

@@ -1,6 +1,12 @@
+import { demoResponse, isDemoMode } from './demoData'
+
 const BASE = '/api'
 
 async function get<T>(path: string, params?: Record<string, string>): Promise<T> {
+  if (isDemoMode()) {
+    return Promise.resolve(demoResponse<T>(path, params))
+  }
+
   const url = new URL(path, window.location.origin)
   url.pathname = BASE + path
   if (params) {

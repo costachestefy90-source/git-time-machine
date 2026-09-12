@@ -24,10 +24,22 @@ jobs:
       - name: Check out the repository
         uses: actions/checkout@v4
 
-      - name: Upload demo files
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install build dependencies
+        run: npm ci
+
+      - name: Build the original dashboard in demo mode
+        run: npm run build
+
+      - name: Upload the dashboard
         uses: actions/upload-pages-artifact@v3
         with:
-          path: demo
+          path: dist/web
 
       - name: Deploy to GitHub Pages
         id: deployment

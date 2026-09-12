@@ -73,14 +73,14 @@ The dashboard is built with React and D3.js. The different views use the Git dat
 
 Demo
 
-There is also a small browser demo with sample repositories:
+There is also a browser demo that uses the same dashboard as the local tool:
 
 https://costachestefy90-source.github.io/git-time-machine/
 
-The demo is safe to explore because it does not upload a repository or run Git commands. Choose an example from the menu to see how the heatmap, hotspots, ownership view, and activity view change. The numbers are sample data; use the local tool above when you want to inspect a real repository.
+The demo uses sample repository data, so it does not upload a repository or run Git commands. Choose an example from the sidebar and use the existing dashboard pages to explore the heatmap, risk scores, ownership, blame, history, and activity views. The numbers are sample data; use the local tool above when you want to inspect a real repository.
 
 GitHub Pages
 
 The complete Git Time Machine app is designed to run locally because it needs a Node server and access to Git on the computer being analyzed.
 
-The browser demo is deployed separately from the `demo` folder by the GitHub Actions workflow in `.github/workflows/pages.yml`.
+The browser demo is built from the original React dashboard in demo mode by the GitHub Actions workflow in `.github/workflows/pages.yml`.
