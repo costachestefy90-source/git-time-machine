@@ -1,6 +1,7 @@
 import { demoResponse, isDemoMode } from './demoData'
 
 const BASE = '/api'
+const requestCache = new Map<string, Promise<unknown>>()
 
 async function get<T>(path: string, params?: Record<string, string>): Promise<T> {
   if (isDemoMode()) {
@@ -14,9 +15,23 @@ async function get<T>(path: string, params?: Record<string, string>): Promise<T>
       url.searchParams.set(k, v)
     }
   }
-  const res = await fetch(url.toString())
-  if (!res.ok) throw new Error(`API error: ${res.status}`)
-  return res.json()
+
+  const cacheKey = url.toString()
+  const cached = requestCache.get(cacheKey)
+  if (cached) return cached as Promise<T>
+
+  const request = fetch(cacheKey)
+    .then((res) => {
+      if (!res.ok) throw new Error(`API error: ${res.status}`)
+      return res.json() as Promise<T>
+    })
+    .catch((error) => {
+      requestCache.delete(cacheKey)
+      throw error
+    })
+
+  requestCache.set(cacheKey, request)
+  return request
 }
 
 export interface CommitInfo {
