@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, BlameLine } from '../lib/api'
 
 const COLORS = [
-  'bg-indigo-500/10', 'bg-emerald-500/10', 'bg-amber-500/10', 'bg-rose-500/10',
-  'bg-cyan-500/10', 'bg-purple-500/10', 'bg-orange-500/10', 'bg-teal-500/10',
+  'bg-accent/10', 'bg-surface-2', 'bg-blue-500/10',
 ]
 
 export default function BlameExplorer() {

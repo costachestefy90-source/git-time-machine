@@ -1,86 +1,49 @@
-Git Time Machine
+# Git Time Machine
 
-Git Time Machine is a local tool for looking through a Git repository in a more visual way.
+I made Git Time Machine to help me look through the history of a Git repository.
+It turns commits and file changes into a few small views that are easier to read.
 
-It shows how files changed over time, who worked on them, and which parts of a project may need attention. It is useful when you want to understand an unfamiliar codebase or look back at how a project developed.
+The main views are:
 
-Everything runs locally on your computer. The repository being analyzed is not uploaded anywhere.
+- a heatmap for files that change a lot
+- an activity calendar
+- a search for words in commit history
+- a simple blame view for a file
 
-Features
+I keep the local analysis on my computer. The repository I choose is not uploaded.
 
-View a visual timeline of Git history
+## What I need
 
-Find files with high change frequency
+- Node.js 18 or newer
+- Git
 
-View possible risk areas
+## Run it locally
 
-Check how concentrated the project knowledge is
-
-Find old or stale files
-
-See files that often change together
-
-Explore how functions changed between commits
-
-Browse Git blame information
-
-Search through commit history
-
-View file size trends
-
-See contributor and activity information
-
-Requirements
-
-Node.js 18 or newer
-
-Git
-
-Running the project
-
-Clone the repository:
-
+```bash
 git clone https://github.com/costachestefy90-source/git-time-machine.git
 cd git-time-machine
-
-Install the dependencies:
-
 npm install
+npm start -- /path/to/a/git/repository
+```
 
-Run Git Time Machine with a repository:
+I replace `/path/to/a/git/repository` with the folder I want to inspect.
 
-npm start -- /path/to/your/repository
+To work on the web part without opening the local server automatically, I use:
 
-Replace /path/to/your/repository with the path to the Git repository you want to inspect.
-
-The tool starts a local server and opens the dashboard in your browser.
-
-Development
-
-To run the server without opening a browser automatically:
-
-npm start -- /path/to/test/repository --no-open
-
-Then start the web development server in another terminal:
-
+```bash
+npm start -- /path/to/a/git/repository --no-open
 npm run dev:web
+```
 
-How it works
+## Demo
 
-The command-line tool starts a local server. The server reads Git history using normal Git commands, then sends the information to the web dashboard.
-
-The dashboard is built with React and D3.js. The different views use the Git data to show history, file changes, contributors, and other project information.
-
-Demo
-
-There is also a browser demo that uses the same dashboard as the local tool:
+I also made a browser demo at:
 
 https://costachestefy90-source.github.io/git-time-machine/
 
-The demo uses sample repository data, so it does not upload a repository or run Git commands. Choose an example from the sidebar and use the existing dashboard pages to explore the heatmap, risk scores, ownership, blame, history, and activity views. The numbers are sample data; use the local tool above when you want to inspect a real repository.
+The demo uses sample data because a browser page cannot read a folder on my computer.
+I can pick one of the sample repositories in the sidebar and try the four views.
 
-GitHub Pages
+## GitHub Pages
 
-The complete Git Time Machine app is designed to run locally because it needs a Node server and access to Git on the computer being analyzed.
-
-The browser demo is built from the original React dashboard in demo mode by the GitHub Actions workflow in `.github/workflows/pages.yml`.
+I use the workflow in `.github/workflows/pages.yml` to build the demo and publish it with GitHub Pages.

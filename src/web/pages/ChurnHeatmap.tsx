@@ -34,7 +34,7 @@ export default function ChurnHeatmap() {
     const maxCommits = d3.max(data, (d) => d.commits) || 1
     const color = d3.scaleSequential()
       .domain([0, maxCommits])
-      .interpolator(d3.interpolateRgbBasis(['#1e3a5f', '#f59e0b', '#ef4444']))
+      .interpolator(d3.interpolateRgbBasis(['#315a86', '#4f81b5', '#93c5fd']))
 
     const leaves = root.leaves()
 
@@ -108,7 +108,7 @@ export default function ChurnHeatmap() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-fg">Code Churn Heatmap</h2>
-          <p className="text-sm text-fg-muted mt-0.5">Hotspots indicate frequently changed files. Red = high churn, blue = stable.</p>
+          <p className="text-sm text-fg-muted mt-0.5">Brighter files have changed more often.</p>
         </div>
         <span className="text-sm text-fg-faint tabular-nums">{data.length} files</span>
       </div>

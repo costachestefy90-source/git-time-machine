@@ -1,7 +1,7 @@
 {
   "name": "git-time-machine",
   "version": "1.0.0",
-  "description": "Visual git archaeology — see how functions evolved, who changed what, and where bugs spread",
+  "description": "A small local dashboard for exploring Git history",
   "type": "module",
   "bin": {
     "git-time-machine": "./bin/cli.ts"

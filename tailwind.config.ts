@@ -17,11 +17,6 @@ export default {
           light: 'var(--accent-light)',
           dim: 'var(--accent-dim)',
         },
-        heat: {
-          cold: '#1e3a5f',
-          warm: '#f59e0b',
-          hot: '#ef4444',
-        },
         fg: {
           DEFAULT: 'var(--fg)',
           muted: 'var(--fg-muted)',
@@ -32,7 +27,7 @@ export default {
         DEFAULT: 'var(--border)',
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+        sans: ['system-ui', '-apple-system', 'sans-serif'],
         mono: ['SF Mono', 'Fira Code', 'JetBrains Mono', 'Cascadia Code', 'monospace'],
       },
     },
