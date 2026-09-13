@@ -7,10 +7,18 @@ import ChurnHeatmap from './pages/ChurnHeatmap'
 import HistorySearch from './pages/HistorySearch'
 
 const NAV_ITEMS = [
-  { path: '/', label: 'Churn heatmap', icon: SvgFlame },
+  { path: '/', label: 'Home', icon: SvgHome },
+  { path: '/churn', label: 'Churn heatmap', icon: SvgFlame },
   { path: '/activity', label: 'Activity', icon: SvgCalendar },
   { path: '/search', label: 'Search history', icon: SvgSearch },
   { path: '/blame', label: 'Blame a file', icon: SvgEye },
+]
+
+const VIEW_CARDS = [
+  { path: '/churn', label: 'Churn heatmap', text: 'See which files changed the most.' },
+  { path: '/activity', label: 'Activity', text: 'See when commits happened.' },
+  { path: '/search', label: 'Search history', text: 'Find a word in old commits.' },
+  { path: '/blame', label: 'Blame a file', text: 'See who changed each line.' },
 ]
 
 export default function App() {
@@ -19,9 +27,8 @@ export default function App() {
   return (
     <div className="min-h-screen flex flex-col md:flex-row">
       <aside className="w-full md:w-56 bg-surface-1 border-b md:border-b-0 md:border-r border-surface-3 flex flex-col shrink-0">
-        <div className="px-5 pt-5 pb-4">
+        <div className="px-4 pt-4 pb-3">
           <p className="text-sm font-bold text-fg">Git Time Machine</p>
-          <p className="text-xs text-fg-faint mt-1">A simple look at Git history</p>
         </div>
 
         {demo && <DemoPicker />}
@@ -55,10 +62,11 @@ export default function App() {
 
       </aside>
 
-      <main className="flex-1 overflow-auto bg-surface-0 p-4 sm:p-6">
-        <div className="max-w-6xl mx-auto">
+      <main className="flex-1 overflow-auto bg-surface-0 p-4 sm:p-5">
+        <div className="w-full">
           <Routes>
-            <Route path="/" element={<ChurnHeatmap />} />
+            <Route path="/" element={<Overview />} />
+            <Route path="/churn" element={<ChurnHeatmap />} />
             <Route path="/activity" element={<ActivityTimeline />} />
             <Route path="/search" element={<HistorySearch />} />
             <Route path="/blame" element={<BlameExplorer />} />
@@ -80,23 +88,49 @@ function DemoPicker() {
   }
 
   return (
-    <div className="px-3 pb-4">
-      <div className="rounded-md bg-surface-2 border border-surface-3 p-3">
-        <p className="text-[10px] uppercase tracking-widest text-accent-light font-bold">Demo data</p>
-        <p className="text-[11px] text-fg-faint mt-1 mb-2">Pick a sample repository</p>
+    <div className="px-3 pb-3">
+        <label className="block text-[10px] uppercase tracking-widest text-fg-faint font-bold mb-1" htmlFor="demo-repository">
+          Demo repository
+        </label>
         <select
+          id="demo-repository"
           value={current}
           onChange={(event) => changeSample(event.target.value)}
-          className="w-full bg-surface-1 border border-surface-3 rounded px-2 py-1.5 text-xs text-fg focus:outline-none focus:border-accent"
+          className="w-full bg-surface-2 border border-surface-3 rounded px-2 py-1.5 text-xs text-fg focus:outline-none focus:border-accent"
           aria-label="Choose a demo repository"
         >
           {Object.entries(DEMO_REPOSITORIES).map(([key, repository]) => (
             <option key={key} value={key}>{repository.repo}</option>
           ))}
         </select>
+    </div>
+  )
+}
+
+function Overview() {
+  return (
+    <div className="max-w-2xl">
+      <h1 className="text-xl font-bold text-fg">Git Time Machine</h1>
+      <p className="text-sm text-fg-muted mt-1">Choose something to look at.</p>
+
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
+        {VIEW_CARDS.map((card) => (
+          <NavLink
+            key={card.path}
+            to={card.path}
+            className="border border-surface-3 bg-surface-1 rounded-md p-4 hover:bg-surface-2"
+          >
+            <p className="text-sm font-semibold text-fg">{card.label}</p>
+            <p className="text-xs text-fg-muted mt-1">{card.text}</p>
+          </NavLink>
+        ))}
       </div>
     </div>
   )
+}
+
+function SvgHome() {
+  return <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m3 10 9-7 9 7" /><path d="M5 9v11h14V9" /><path d="M9 20v-6h6v6" /></svg>
 }
 
 function SvgFlame() {
