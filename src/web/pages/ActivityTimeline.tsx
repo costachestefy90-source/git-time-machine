@@ -39,7 +39,6 @@ export default function ActivityTimeline() {
     <div className="flex flex-col gap-5">
       <div>
         <h2 className="text-xl font-bold text-fg">Activity Timeline</h2>
-        <p className="text-sm text-fg-muted mt-0.5">A simple view of when commits happened</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">

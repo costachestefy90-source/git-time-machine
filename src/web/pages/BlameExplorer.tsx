@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { api, BlameLine } from '../lib/api'
 
 const COLORS = [
-  'bg-accent/10', 'bg-surface-2', 'bg-blue-500/10',
+  'bg-accent/10',
 ]
 
 export default function BlameExplorer() {
@@ -45,7 +45,6 @@ export default function BlameExplorer() {
     <div className="h-full flex flex-col gap-5">
       <div>
         <h2 className="text-xl font-bold text-fg">Blame Explorer</h2>
-        <p className="text-sm text-fg-muted mt-0.5">Click any line to see who wrote it and why</p>
       </div>
 
       <div className="relative">
@@ -117,7 +116,7 @@ export default function BlameExplorer() {
             <div className="w-80 bg-surface-1 rounded-xl border border-surface-3 p-5 overflow-auto shrink-0 shadow-sm">
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-sm font-bold text-fg">Line {selectedLine.line}</h3>
-                <button onClick={() => setSelectedLine(null)} className="text-fg-faint hover:text-fg transition-colors">
+                <button onClick={() => setSelectedLine(null)} className="text-accent hover:text-accent-dim">
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
                 </button>
               </div>

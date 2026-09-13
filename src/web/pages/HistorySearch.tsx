@@ -19,7 +19,6 @@ export default function HistorySearch() {
     <div className="h-full flex flex-col gap-5">
       <div>
         <h2 className="text-xl font-bold text-fg">History Search</h2>
-        <p className="text-sm text-fg-muted mt-0.5">Find when a string was added or removed across all history</p>
       </div>
 
       <div className="flex gap-2">
@@ -109,7 +108,7 @@ export default function HistorySearch() {
               <button
                 key={s}
                 onClick={() => { setQuery(s); }}
-                className="text-xs px-4 py-2 bg-surface-1 border border-surface-3 rounded-lg text-fg-muted font-semibold hover:text-fg hover:border-accent transition-all"
+                className="text-xs px-4 py-2 bg-accent rounded-lg text-white font-semibold hover:bg-accent-dim"
               >
                 {s}
               </button>

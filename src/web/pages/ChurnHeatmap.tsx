@@ -108,7 +108,6 @@ export default function ChurnHeatmap() {
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-fg">Code Churn Heatmap</h2>
-          <p className="text-sm text-fg-muted mt-0.5">Brighter files have changed more often.</p>
         </div>
         <span className="text-sm text-fg-faint tabular-nums">{data.length} files</span>
       </div>
@@ -122,7 +121,7 @@ export default function ChurnHeatmap() {
           <div className="w-72 bg-surface-1 rounded-xl border border-surface-3 p-5 overflow-auto shadow-sm">
             <div className="flex items-center justify-between mb-3">
               <h3 className="text-sm font-semibold text-fg truncate">{selected.path.split('/').pop()}</h3>
-              <button onClick={() => setSelected(null)} className="text-fg-faint hover:text-fg transition-colors">
+              <button onClick={() => setSelected(null)} className="text-accent hover:text-accent-dim">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
               </button>
             </div>

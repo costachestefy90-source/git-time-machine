@@ -15,10 +15,10 @@ const NAV_ITEMS = [
 ]
 
 const VIEW_CARDS = [
-  { path: '/churn', label: 'Churn heatmap', text: 'See which files changed the most.' },
-  { path: '/activity', label: 'Activity', text: 'See when commits happened.' },
-  { path: '/search', label: 'Search history', text: 'Find a word in old commits.' },
-  { path: '/blame', label: 'Blame a file', text: 'See who changed each line.' },
+  { path: '/churn', label: 'Churn heatmap' },
+  { path: '/activity', label: 'Activity' },
+  { path: '/search', label: 'Search history' },
+  { path: '/blame', label: 'Blame a file' },
 ]
 
 export default function App() {
@@ -33,8 +33,7 @@ export default function App() {
 
         {demo && <DemoPicker />}
 
-        <nav className="px-3 pb-3 flex-1">
-          <p className="text-[10px] uppercase tracking-widest text-fg-faint font-semibold px-2 mb-2">Views</p>
+        <nav className="px-3 pb-3 flex-1" aria-label="Views">
           <div className="flex flex-col gap-1">
             {NAV_ITEMS.map((item) => {
               const Icon = item.icon
@@ -111,7 +110,6 @@ function Overview() {
   return (
     <div className="max-w-2xl">
       <h1 className="text-xl font-bold text-fg">Git Time Machine</h1>
-      <p className="text-sm text-fg-muted mt-1">Choose something to look at.</p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6">
         {VIEW_CARDS.map((card) => (
@@ -121,7 +119,6 @@ function Overview() {
             className="border border-surface-3 bg-surface-1 rounded-md p-4 hover:bg-surface-2"
           >
             <p className="text-sm font-semibold text-fg">{card.label}</p>
-            <p className="text-xs text-fg-muted mt-1">{card.text}</p>
           </NavLink>
         ))}
       </div>
