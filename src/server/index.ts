@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { isGitRepo, getRepoName, getLog, getBlame, getDiff, getTrackedFiles, getFileAtCommit } from '../analyzer/git.js'
+import { isGitRepo, getRepoName, getLog, getDiff, getTrackedFiles, getFileAtCommit } from '../analyzer/git.js'
 import { analyzeChurn } from '../analyzer/churn.js'
 import { analyzeContributors, analyzeOwnership, analyzeAllOwnership } from '../analyzer/contributors.js'
 import { trackFunction, listFunctions } from '../analyzer/functions.js'
@@ -38,12 +38,6 @@ export function createServer(targetDir: string, port: number) {
   app.get('/api/files', (_req, res) => {
     const files = getTrackedFiles(targetDir)
     res.json(files)
-  })
-
-  app.get('/api/blame', (req, res) => {
-    const filePath = req.query.file as string
-    if (!filePath) return res.status(400).json({ error: 'file param required' })
-    res.json(getBlame(targetDir, filePath))
   })
 
   app.get('/api/diff', (req, res) => {
@@ -150,7 +144,7 @@ export function createServer(targetDir: string, port: number) {
   })
 
   return app.listen(port, () => {
-    console.log(`\n  🕰️  Git Time Machine`)
+    console.log(`\n  Git Time Machine`)
     console.log(`  Analyzing: ${targetDir}`)
     console.log(`  Open: http://localhost:${port}\n`)
   })

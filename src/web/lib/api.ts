@@ -40,9 +40,6 @@ export interface CommitInfo {
 export interface FileChurn {
   path: string; commits: number; additions: number; deletions: number; authors: string[]; lastModified: string
 }
-export interface BlameLine {
-  line: number; content: string; hash: string; author: string; email: string; date: string; message: string
-}
 export interface ContributorStats {
   name: string; email: string; commits: number; additions: number; deletions: number
   files: string[]; firstCommit: string; lastCommit: string
@@ -84,7 +81,6 @@ export const api = {
   info: () => get<{ repo: string; path: string }>('/info'),
   log: (max = 500) => get<CommitInfo[]>('/log', { max: String(max) }),
   files: () => get<string[]>('/files'),
-  blame: (file: string) => get<BlameLine[]>('/blame', { file }),
   diff: (hash: string, file?: string) => get<{ diff: string }>('/diff', { hash, ...(file ? { file } : {}) }),
   churn: (max = 500) => get<FileChurn[]>('/churn', { max: String(max) }),
   contributors: (max = 500) => get<ContributorStats[]>('/contributors', { max: String(max) }),

@@ -1,4 +1,4 @@
-import type { BlameLine, DayActivity, FileChurn, SearchResult } from './api'
+import type { DayActivity, FileChurn, SearchResult } from './api'
 
 type Author = { name: string; email: string }
 
@@ -34,7 +34,6 @@ export const DEMO_REPOSITORIES: Record<string, DemoRepository> = {
       'src/web/pages/ChurnHeatmap.tsx',
       'src/web/pages/ActivityTimeline.tsx',
       'src/web/pages/HistorySearch.tsx',
-      'src/web/pages/BlameExplorer.tsx',
       'README.md',
     ],
   },
@@ -166,37 +165,6 @@ function makeDays(repository: DemoRepository) {
   }))
 }
 
-function makeBlame(repository: DemoRepository, file: string): BlameLine[] {
-  const fileName = file.split('/').pop()?.split('.')[0] || 'Repository'
-  const snippets = [
-    'export function inspect' + fileName + '() {',
-    '  const history = readHistory(repository)',
-    '  const changes = groupByFile(history)',
-    '  return changes.sort(byChangePressure)',
-    '}',
-    '',
-    '// Keep the analysis local to the selected repository.',
-    'const recent = history.filter(isRecent)',
-    'return summarize(recent)',
-  ]
-  const messages = ['Add repository summary', 'Keep history local', 'Sort the result by pressure']
-
-  return Array.from({ length: 18 }, (_, index) => {
-    const author = repository.authors[index % repository.authors.length]
-    const hash = ((repository.seed + index + 20).toString(16).padStart(2, '0') + 'def5678'.repeat(8)).slice(0, 40)
-
-    return {
-      line: index + 1,
-      content: snippets[index % snippets.length],
-      hash,
-      author: author.name,
-      email: author.email,
-      date: isoDaysAgo(index * 17 + 5),
-      message: messages[index % messages.length],
-    }
-  })
-}
-
 function makeSearchResults(repository: DemoRepository, query: string): SearchResult[] {
   const files = [repository.files[0], repository.files[Math.min(3, repository.files.length - 1)], repository.files[repository.files.length - 1]]
   const messages = ['Add a history search result', 'Keep the dashboard queryable', 'Document the cleanup']
@@ -251,8 +219,6 @@ export function demoResponse<T>(path: string, params?: Record<string, string>): 
       return data.activity as T
     case '/activity/days':
       return data.days as T
-    case '/blame':
-      return makeBlame(repository, params?.file || repository.files[0]) as T
     case '/search':
       return makeSearchResults(repository, params?.q || 'TODO') as T
     default:
